@@ -10,11 +10,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    env:
-      DATABASE_URL: "file:./dev.db"
-      NODE_ENV: "test"
-      MODERATOR_SECRET: "ci_secret_mod_token"
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -27,15 +22,28 @@ jobs:
       - name: Install root dependencies
         run: npm install
 
-      - name: Install server dependencies & prepare Prisma
+      - name: Install server dependencies
         working-directory: server
-        run: |
-          npm install
-          npx prisma generate
-          npx prisma db push --skip-generate
+        run: npm install
+
+      - name: Generate Prisma Client
+        working-directory: server
+        env:
+          DATABASE_URL: "file:./dev.db"
+        run: npx prisma generate
+
+      - name: Push Prisma Schema
+        working-directory: server
+        env:
+          DATABASE_URL: "file:./dev.db"
+        run: npx prisma db push --accept-data-loss
 
       - name: Run server test suite
         working-directory: server
+        env:
+          DATABASE_URL: "file:./dev.db"
+          NODE_ENV: "test"
+          MODERATOR_SECRET: "dev_secret_mod_token_2026"
         run: npm test
 
       - name: Build server distribution
