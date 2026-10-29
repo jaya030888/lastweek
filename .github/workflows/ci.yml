@@ -10,6 +10,11 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    env:
+      DATABASE_URL: "file:./dev.db"
+      NODE_ENV: "test"
+      MODERATOR_SECRET: "ci_secret_mod_token"
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -18,31 +23,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
-          cache: 'npm'
 
       - name: Install root dependencies
-        run: npm ci
+        run: npm install
 
       - name: Install server dependencies & prepare Prisma
+        working-directory: server
         run: |
-          cd server
-          npm ci
+          npm install
           npx prisma generate
           npx prisma db push --skip-generate
 
       - name: Run server test suite
-        run: |
-          cd server
-          npm test
+        working-directory: server
+        run: npm test
 
       - name: Build server distribution
-        run: |
-          cd server
-          npm run build
+        working-directory: server
+        run: npm run build
 
       - name: Install client dependencies & verify build
+        working-directory: client
         run: |
-          cd client
-          npm ci
+          npm install
           npm run build
-
