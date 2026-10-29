@@ -10,6 +10,12 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    env:
+      DATABASE_URL: "file:./dev.db"
+      NODE_ENV: "test"
+      MODERATOR_SECRET: "dev_secret_mod_token_2026"
+      PORT: "5000"
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -28,30 +34,28 @@ jobs:
 
       - name: Generate Prisma Client
         working-directory: server
-        env:
-          DATABASE_URL: "file:./dev.db"
         run: npx prisma generate
 
-      - name: Push Prisma Schema
+      - name: Push Prisma Database Schema
         working-directory: server
-        env:
-          DATABASE_URL: "file:./dev.db"
         run: npx prisma db push --accept-data-loss
 
-      - name: Run server test suite
+      - name: Seed Database with Initial Data
         working-directory: server
-        env:
-          DATABASE_URL: "file:./dev.db"
-          NODE_ENV: "test"
-          MODERATOR_SECRET: "dev_secret_mod_token_2026"
+        run: npx ts-node prisma/seed.ts
+
+      - name: Run Server Test Suite
+        working-directory: server
         run: npm test
 
-      - name: Build server distribution
+      - name: Build Server Distribution
         working-directory: server
         run: npm run build
 
-      - name: Install client dependencies & verify build
+      - name: Install Client Dependencies
         working-directory: client
-        run: |
-          npm install
-          npm run build
+        run: npm install
+
+      - name: Build Client Distribution
+        working-directory: client
+        run: npm run build
