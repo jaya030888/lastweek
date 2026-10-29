@@ -1,0 +1,168 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             String          @id @default(uuid())
+  pseudonym      String          @unique
+  avatarSeed     String          @default("violet")
+  createdAt      DateTime        @default(now())
+  lastActive     DateTime        @default(now())
+  isModerator    Boolean         @default(false)
+  locationConsent Boolean        @default(false)
+  posts          Post[]
+  comments       Comment[]
+  reactions      Reaction[]
+  bookmarks      Bookmark[]
+  reports        ContentReport[]
+}
+
+model Post {
+  id               String          @id @default(uuid())
+  authorId         String
+  pseudonym        String
+  title            String
+  content          String
+  category         String          // domestic_abuse, harassment, sexual_violence, relationships, discrimination, recovery
+  triggerWarning   String?
+  isVerified       Boolean         @default(false)
+  isFlagged        Boolean         @default(false)
+  moderationStatus String          @default("approved") // approved, pending, hidden
+  upvotes          Int             @default(0)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  author           User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments         Comment[]
+  reactions        Reaction[]
+  bookmarks        Bookmark[]
+  reports          ContentReport[]
+}
+
+model Comment {
+  id               String          @id @default(uuid())
+  postId           String
+  authorId         String
+  pseudonym        String
+  content          String
+  moderationStatus String          @default("approved")
+  createdAt        DateTime        @default(now())
+
+  post             Post            @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author           User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Reaction {
+  id        String   @id @default(uuid())
+  postId    String
+  userId    String
+  type      String   // purple_heart, empathy_hug, solidarity, listening_ear
+  createdAt DateTime @default(now())
+
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId, type])
+}
+
+model Bookmark {
+  id        String   @id @default(uuid())
+  postId    String
+  userId    String
+  createdAt DateTime @default(now())
+
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId])
+}
+
+model ContentReport {
+  id          String   @id @default(uuid())
+  targetType  String   // post, comment
+  targetId    String
+  reporterId  String
+  reason      String   // harassment, doxxing, hate_speech, spam, misinformation, other
+  details     String?
+  status      String   @default("pending") // pending, reviewed, dismissed, action_taken
+  createdAt   DateTime @default(now())
+
+  post        Post?    @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  reporter    User     @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+}
+
+model QuickReportDraft {
+  id                  String   @id @default(uuid())
+  anonymousSessionId  String
+  incidentCategory    String
+  isImmediateDanger   Boolean  @default(false)
+  description         String?
+  hasVoiceNote        Boolean  @default(false)
+  locationShared      Boolean  @default(false)
+  approxCity          String?
+  triageChoice        String   // support, complaint_draft, official_portal
+  status              String   @default("draft") // draft, ready_for_review, saved_locally
+  createdAt           DateTime @default(now())
+}
+
+model SafetyResource {
+  id              String   @id @default(uuid())
+  title           String
+  category        String   // helpline, shelter, legal_aid, hospital, cyber_safety
+  description     String
+  phoneNumber     String?
+  emergencyNumber String?
+  address         String?
+  city            String?
+  state           String?
+  country         String   @default("India")
+  is24x7          Boolean  @default(false)
+  source          String
+  verifiedDate    String
+  url             String?
+}
+
+model Ngo {
+  id                  String   @id @default(uuid())
+  name                String
+  mission             String
+  description         String
+  services            String   // Comma separated e.g. "Shelter, Legal Aid, Counselling"
+  contactEmail        String?
+  contactPhone        String?
+  officialWebsite     String
+  officialDonationUrl String
+  city                String
+  state               String
+  verifiedSource      String
+  verifiedDate        String
+  volunteerInfo       String?
+}
+
+model MemorialStory {
+  id               String   @id @default(uuid())
+  name             String
+  eraOrYear        String
+  location         String
+  biography        String
+  legacyImpact     String
+  candlesLit       Int      @default(0)
+  marigoldsOffered Int      @default(0)
+  preventionNote   String
+  verifiedSource   String
+}
+
+model MemorialTribute {
+  id         String   @id @default(uuid())
+  storyId    String
+  tributeType String  // candle, marigold
+  pseudonym  String
+  message    String?
+  createdAt  DateTime @default(now())
+}
+

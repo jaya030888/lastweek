@@ -1,0 +1,31 @@
+{
+  "name": "her-voice",
+  "version": "1.0.0",
+  "description": "Her Voice 💜 - Open-Source AI-Powered Platform for Women's Safety, Support & Awareness",
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build": "cd client && npm run build && cd ../server && npm run build",
+    "test": "cd server && npm test"
+  },
+  "keywords": [
+    "womens-safety",
+    "ai",
+    "ollama",
+    "rag",
+    "support",
+    "open-source",
+    "react",
+    "tailwind",
+    "express",
+    "prisma"
+  ],
+  "author": "Her Voice Open Source Initiative",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
+

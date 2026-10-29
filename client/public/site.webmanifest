@@ -1,0 +1,22 @@
+{
+  "name": "Her Voice - Women's Safety & Support Platform",
+  "short_name": "Her Voice",
+  "description": "Your story matters. Your identity is yours to protect. Open-source women's safety, anonymous community support, and verified guidance.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf9fe",
+  "theme_color": "#581c87",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml"
+    }
+  ]
+}
+

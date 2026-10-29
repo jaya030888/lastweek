@@ -1,0 +1,23 @@
+# robots.txt for Her Voice Platform
+User-agent: *
+Allow: /
+Allow: /herspace
+Allow: /quick-report
+Allow: /safepath
+Allow: /saathi-ai
+Allow: /simulator
+Allow: /memorial
+Allow: /ngos
+Allow: /about
+Allow: /privacy-policy
+Allow: /terms
+Allow: /thank-you
+
+# Protect private endpoints, moderation dashboard, and user drafts from crawlers
+Disallow: /moderation
+Disallow: /privacy
+Disallow: /api/quick-reports/
+Disallow: /api/moderation/
+
+Sitemap: https://hervoice.org/sitemap.xml
+
