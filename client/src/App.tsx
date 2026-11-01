@@ -17,9 +17,7 @@ const HerSpaceFeed = lazy(() => import('./pages/HerSpaceFeed').then(m => ({ defa
 const QuickReportPage = lazy(() => import('./pages/QuickReportPage').then(m => ({ default: m.QuickReportPage })));
 const SafePathHub = lazy(() => import('./pages/SafePathHub').then(m => ({ default: m.SafePathHub })));
 const SaathiAiChat = lazy(() => import('./pages/SaathiAiChat').then(m => ({ default: m.SaathiAiChat })));
-const RealitySimulatorPage = lazy(() => import('./pages/RealitySimulatorPage').then(m => ({ default: m.RealitySimulatorPage })));
 const MemorialPage = lazy(() => import('./pages/MemorialPage').then(m => ({ default: m.MemorialPage })));
-const NgoDirectoryPage = lazy(() => import('./pages/NgoDirectoryPage').then(m => ({ default: m.NgoDirectoryPage })));
 const PrivacySettingsPage = lazy(() => import('./pages/PrivacySettingsPage').then(m => ({ default: m.PrivacySettingsPage })));
 const ModerationDashboard = lazy(() => import('./pages/ModerationDashboard').then(m => ({ default: m.ModerationDashboard })));
 const AboutSafetyGuidelinesPage = lazy(() => import('./pages/AboutSafetyGuidelinesPage').then(m => ({ default: m.AboutSafetyGuidelinesPage })));
@@ -69,10 +67,8 @@ export const App: React.FC = () => {
                   <Route path="/quick-report" element={<QuickReportPage />} />
                   <Route path="/safepath" element={<SafePathHub />} />
                   <Route path="/saathi-ai" element={<SaathiAiChat />} />
-                  <Route path="/simulator" element={<RealitySimulatorPage />} />
-                  <Route path="/simulator/:slug" element={<RealitySimulatorPage />} />
                   <Route path="/memorial" element={<MemorialPage />} />
-                  <Route path="/ngos" element={<NgoDirectoryPage />} />
+                  <Route path="/ngos" element={<MemorialPage />} />
                   <Route path="/privacy" element={<PrivacySettingsPage />} />
                   <Route path="/moderation" element={<ModerationDashboard />} />
                   <Route path="/about" element={<AboutSafetyGuidelinesPage />} />

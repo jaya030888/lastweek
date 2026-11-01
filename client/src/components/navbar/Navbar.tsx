@@ -27,9 +27,7 @@ export const Navbar: React.FC = () => {
     { label: 'Quick Report', path: '/quick-report', icon: ShieldAlert },
     { label: 'SafePath', path: '/safepath', icon: Shield },
     { label: 'Saathi AI', path: '/saathi-ai', icon: Bot },
-    { label: 'Reality Simulator', path: '/simulator', icon: Compass },
-    { label: 'Memorial', path: '/memorial', icon: Flame },
-    { label: 'NGO Connect', path: '/ngos', icon: Building2 },
+    { label: 'Memorial & NGOs', path: '/memorial', icon: Flame },
   ];
 
   const isActive = (path: string) => {

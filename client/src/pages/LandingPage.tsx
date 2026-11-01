@@ -62,31 +62,13 @@ export const LandingPage: React.FC = () => {
       badge: 'Open-Weight LLM',
     },
     {
-      title: 'The Reality Simulator',
-      tagline: 'Main Interactive USP',
+      title: 'Remember Her & Support NGOs',
+      tagline: 'Memorial & Frontline Giving',
       description:
-        'Cinematic branching scenarios illustrating coercive control, workplace POSH intervention, and cyber harassment without victim-blaming.',
-      icon: Compass,
-      path: '/simulator',
-      badge: 'Interactive',
-    },
-    {
-      title: 'Remember Her Memorial',
-      tagline: 'Change Tomorrow',
-      description:
-        'A respectful digital memorial celebrating lives, achievements, and legal reforms. Light virtual candles and offer tributes of solidarity.',
+        'A unified sanctuary honoring pioneer lives with virtual candles and marigolds, paired with direct giving to verified non-profits offering shelter and legal defense.',
       icon: Flame,
       path: '/memorial',
-      badge: 'Digital Memorial',
-    },
-    {
-      title: 'NGO Connect & Donate',
-      tagline: 'Verified Support Directory',
-      description:
-        'Connect directly with vetted non-profits for free legal aid, safe emergency shelter, and counseling. Links straight to official donation portals.',
-      icon: Building2,
-      path: '/ngos',
-      badge: 'Direct Links',
+      badge: 'Memorial & NGOs',
     },
   ];
 
@@ -141,12 +123,12 @@ export const LandingPage: React.FC = () => {
               </Link>
 
               <Link
-                to="/simulator"
+                to="/memorial"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs sm:text-sm rounded-xl border border-zinc-700 shadow-sm transition active:scale-95"
-                aria-label="Open the reality simulator interactive storytelling"
+                aria-label="Open Memorial & NGO Giving Hub"
               >
-                <Compass className="w-4 h-4 text-purple-300" aria-hidden="true" />
-                <span>Reality Simulator</span>
+                <Flame className="w-4 h-4 text-amber-400" aria-hidden="true" />
+                <span>Memorial &amp; Support NGOs</span>
               </Link>
             </div>
 
@@ -187,18 +169,10 @@ export const LandingPage: React.FC = () => {
               <Link
                 to="/memorial"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs rounded-xl shadow transition"
-                aria-label="Visit Digital Memorial to light a candle"
+                aria-label="Visit Digital Memorial & Verified NGOs"
               >
                 <Flame className="w-3.5 h-3.5 text-amber-300" aria-hidden="true" />
-                <span>Visit Digital Memorial</span>
-              </Link>
-              <Link
-                to="/simulator"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold text-xs rounded-xl border border-zinc-700 transition"
-                aria-label="Walk through Reality Simulator scenarios"
-              >
-                <span>Walk through Reality Scenarios</span>
-                <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                <span>Visit Digital Memorial &amp; Support NGOs</span>
               </Link>
             </div>
           </div>

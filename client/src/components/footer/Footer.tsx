@@ -86,9 +86,7 @@ export const Footer: React.FC = () => {
               <li><Link to="/quick-report" className="hover:text-purple-400 transition">Quick Report & Guided Triage</Link></li>
               <li><Link to="/safepath" className="hover:text-purple-400 transition">SafePath Safety Planning</Link></li>
               <li><Link to="/saathi-ai" className="hover:text-purple-400 transition">Saathi AI Companion</Link></li>
-              <li><Link to="/simulator" className="hover:text-purple-400 transition">The Reality Simulator</Link></li>
-              <li><Link to="/memorial" className="hover:text-purple-400 transition">Remember Her Memorial</Link></li>
-              <li><Link to="/ngos" className="hover:text-purple-400 transition">Verified NGO Directory</Link></li>
+              <li><Link to="/memorial" className="hover:text-purple-400 transition">Remember Her Memorial &amp; NGOs</Link></li>
             </ul>
           </div>
 
