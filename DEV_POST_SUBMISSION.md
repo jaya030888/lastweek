@@ -6,7 +6,7 @@ tags: devchallenge, hf26challenge, hacktoberfest, ai
 
 *This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 4: Ghost in the Machine](https://dev.to/challenges/hacktoberfest-week4-2026-10-26)*
 
-> **Team Submission**: Developed in equal partnership by [@YourDevUsername](https://dev.to/) & [@TeammateDevUsername](https://dev.to/).
+> **Team Submission**: Developed in equal partnership by [@https://github.com/jaya030888](https://dev.to/) & [@https://github.com/mdnawedullah09](https://dev.to/).
 
 ---
 
