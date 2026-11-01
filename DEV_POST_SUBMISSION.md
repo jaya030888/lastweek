@@ -2,7 +2,7 @@
 title: 👻 Her Voice 💜 — The Ghost in the Machine That Listens Without Judging
 published: true
 tags: devchallenge, hf26challenge, hacktoberfest, ai
-cover_image: https://raw.githubusercontent.com/jaya030888/lastweek/main/client/public/vite.svg
+cover_image: https://raw.githubusercontent.com/jaya030888/her-voice/main/client/public/vite.svg
 ---
 
 *This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 4: Ghost in the Machine](https://dev.to/challenges/hacktoberfest-week4-2026-10-26)*
@@ -84,16 +84,16 @@ Her Voice reimagines this concept into a sanctuary where technology acts as an e
 
 ## Demo
 
-* **Live Platform**: [Explore Her Voice on Vercel](https://lastweek-git-main-jaya030888s-projects.vercel.app/) *(or add your custom domain)*
+* **Live Platform**: [https://lastweek-three.vercel.app/](https://lastweek-three.vercel.app/)
 * **Interactive Features**: Test out Saathi AI, explore the verified safety checklists on SafePath, read community stories in HerSpace, and light a tribute candle.
 
 ---
 
 ## Code
 
-{% github jaya030888/lastweek %}
+{% github jaya030888/her-voice %}
 
-The complete codebase is 100% open-source under the **MIT License**.
+The complete codebase is 100% open-source under the **MIT License**. Repository: [https://github.com/jaya030888/her-voice](https://github.com/jaya030888/her-voice)
 
 ---
 
@@ -173,3 +173,4 @@ And through the memorial, we remember that honoring the women who were silenced 
 *A woman's voice should never have to disappear for the world to finally listen.* 💜
 
 #devchallenge #hf26challenge #hacktoberfest #opensource #ai
+
