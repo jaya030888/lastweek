@@ -231,12 +231,11 @@ export const MemorialPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Interactive Candle & Marigold Offering */}
+                  {/* Interactive Candle Offering */}
                   <CandleOffering
                     storyName={story.name}
                     initialCandles={story.candlesLit}
-                    initialMarigolds={story.marigoldsOffered}
-                    onTributeSubmit={(type, message) => handleTributeSubmit(story.id, type, message)}
+                    onTributeSubmit={(_type, message) => handleTributeSubmit(story.id, 'candle', message)}
                   />
 
                   {/* Direct Donate Option for this Story */}
