@@ -321,8 +321,8 @@ export const SaathiAiChat: React.FC = () => {
           </div>
 
           {/* Suggested Quick Prompt Pills */}
-          <div className="p-2.5 bg-zinc-50 border-t border-zinc-100 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
-            <span className="text-[10px] text-zinc-400 font-bold uppercase shrink-0">Topics:</span>
+          <div className="p-3 bg-zinc-50 border-t border-zinc-200 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
+            <span className="text-[11px] text-zinc-600 font-extrabold uppercase shrink-0">Topics:</span>
             {[
               'What are my legal rights under PWDVA 2005?',
               'How does POSH workplace Internal Committee work?',
@@ -333,7 +333,7 @@ export const SaathiAiChat: React.FC = () => {
                 key={idx}
                 type="button"
                 onClick={() => handleSendMessage(prompt)}
-                className="px-3 py-1 bg-white hover:bg-purple-100 text-zinc-700 hover:text-purple-900 border border-zinc-200 rounded-full text-xs shrink-0 transition"
+                className="px-3.5 py-1.5 bg-white hover:bg-purple-100 text-zinc-800 hover:text-purple-950 font-semibold border border-zinc-300 hover:border-purple-300 rounded-full text-xs shrink-0 transition shadow-2xs"
               >
                 {prompt}
               </button>
@@ -341,14 +341,14 @@ export const SaathiAiChat: React.FC = () => {
           </div>
 
           {/* Input Area */}
-          <div className="p-3 bg-white border-t border-zinc-100 flex gap-2">
+          <div className="p-3.5 bg-white border-t border-zinc-200 flex gap-2.5 items-center">
             <input
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               placeholder="Ask Saathi in English or Hindi (e.g. 'What are my rights under PWDVA?')..."
               aria-label="Type message to Saathi AI"
-              className="flex-1 px-4 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl text-xs sm:text-sm text-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:border-purple-600"
+              className="flex-1 px-4 py-3 bg-zinc-50 border border-zinc-300 rounded-xl text-sm text-zinc-900 placeholder:text-zinc-500 font-medium focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition shadow-inner"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') handleSendMessage();
               }}
@@ -358,7 +358,7 @@ export const SaathiAiChat: React.FC = () => {
               disabled={isTyping || !inputMessage.trim()}
               onClick={() => handleSendMessage()}
               aria-label="Send message"
-              className="px-5 py-2.5 bg-purple-700 hover:bg-purple-800 text-white rounded-xl font-bold text-xs shadow transition disabled:opacity-40"
+              className="px-5 py-3 bg-purple-700 hover:bg-purple-800 text-white rounded-xl font-bold text-sm shadow-md transition disabled:opacity-40 flex items-center justify-center shrink-0 active:scale-95"
             >
               <Send className="w-4 h-4" aria-hidden="true" />
             </button>
