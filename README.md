@@ -35,6 +35,20 @@ Drawing from Día de los Muertos traditions, remembrance is not passive grief—
 - **8-Question Relationship Red-Flag Diagnostic:** Trauma-informed assessment for coercive control, digital surveillance, financial denial, and gaslighting with automated risk scoring.
 - **Verified Resources Catalog:** Filterable directory of 24x7 crisis lines, Sakhi One Stop Centres, and legal aid clinics with verification stamps.
 
+- **Initial Location:** Enter the starting point of your journey.
+- **Destination:** Enter your intended destination.
+- **Location Search:** Integrated OpenStreetMap Nominatim for location lookup.
+- **Route Calculation:** Integrated OSRM Routing API to calculate driving routes.
+- **Distance Estimation:** Displays the estimated route distance in kilometers.
+- **Travel Time Estimation:** Shows approximate driving time.
+- **Interactive Map:** Provides an option to open the suggested route on OpenStreetMap.
+- **Input Validation:** Handles empty inputs and invalid locations.
+- **Error Handling:** Displays helpful messages when route calculation fails.
+
+### Safety Disclaimer
+The route finder provides suggested driving routes based on available road network data. It does not verify real-time crime rates, street lighting, traffic conditions, road closures, or personal safety. Therefore, it cannot guarantee the safest route. In an emergency in India, call **112**.
+
+
 ### 4. Saathi AI — Support Companion (साथी AI)
 - **Local Open-Weight AI Inference:** Direct integration with Ollama (supporting `llama3`, `mistral`, `qwen2.5`) ensuring zero survivor data leaves the host machine.
 - **Trauma-Informed Ethical Guardrails:** Saathi clearly identifies as an AI, refuses to judge credibility or advise confrontation with abusers, and provides verified emergency numbers.
