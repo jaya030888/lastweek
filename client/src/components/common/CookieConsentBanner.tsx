@@ -41,7 +41,7 @@ export const CookieConsentBanner: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2.5 shrink-0 w-full sm:w-auto justify-end">
+        <div className="flex items-center gap-2.5 shrink-0 w-full sm:w-auto justify-end sm:mr-44">
           <button
             onClick={() => handleConsent('essential')}
             className="px-3.5 py-1.5 rounded-lg border border-zinc-700 hover:border-zinc-500 text-zinc-300 text-xs font-semibold hover:bg-zinc-800 transition"
