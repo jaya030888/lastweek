@@ -15,7 +15,6 @@ import {
   Heart,
 } from 'lucide-react';
 import { useUser } from '../../context/UserContext';
-import { QuickExitButton } from '../common/QuickExitButton';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -97,9 +96,6 @@ export const Navbar: React.FC = () => {
                 Mod Queue
               </Link>
             )}
-
-            {/* Quick Exit Header Button */}
-            <QuickExitButton compact />
 
             {/* Mobile Hamburger toggle */}
             <button
