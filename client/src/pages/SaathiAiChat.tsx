@@ -64,7 +64,7 @@ export const SaathiAiChat: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, [messages, isTyping]);
 
   const handleSendMessage = async (customPrompt?: string) => {
@@ -217,7 +217,7 @@ export const SaathiAiChat: React.FC = () => {
 
       {/* TAB 1: CHAT COMPANION */}
       {activeTab === 'chat' && (
-        <div className="bg-white rounded-3xl border border-zinc-200 shadow-xs flex flex-col h-[650px] overflow-hidden">
+        <div className="bg-white rounded-3xl border border-zinc-200 shadow-xs flex flex-col h-[75vh] min-h-[500px] max-h-[750px] overflow-hidden">
           {/* Chat Header Bar */}
           <div className="p-3.5 bg-zinc-50 border-b border-zinc-100 flex items-center justify-between text-xs">
             <div className="flex items-center gap-2">
