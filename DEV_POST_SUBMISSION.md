@@ -14,12 +14,12 @@ tags: devchallenge, hf26challenge, hacktoberfest, ai
 
 This project was built from the ground up as a balanced, equal team collaboration between two developers. Every component of **Her Voice** was designed, implemented, and verified together across frontend and backend boundaries:
 
-* **Developer 1 ([@YourDevUsername](https://dev.to/))**:
+* **Developer 1 ([@jaya patel](https://dev.to/jaya_patel_3e4e433cabef5d))**:
   * **AI Architecture & Fallback Engine**: Engineered the local Ollama LLM integration (Llama 3 / Mistral) and the deterministic trauma-informed RAG retrieval engine with legal citations (PWDVA 2005, POSH Act, BNS).
   * **Backend API & Data Models**: Designed Express routes, Prisma schema, server-side PII moderation middleware, and automated unit testing suites with Vitest and Supertest.
   * **Crisis Triage Engine**: Architected the multi-stage Quick Report crisis triage flow and emergency escalation pathways.
 
-* **Developer 2 ([@TeammateDevUsername](https://dev.to/))**:
+* **Developer 2 ([@Nawed Ullah](https://dev.to/nawed_ullah_86d66394947ac))**:
   * **Frontend Experience & Design System**: Crafted the accessible, responsive React 18 & Tailwind UI, high-contrast typography, and calming trauma-informed aesthetic.
   * **Memorial & NGO Action**: Built the unified *Remember Her, Change Tomorrow* memorial with virtual candle tributes and direct donation pledges to verified grassroots NGOs.
   * **Community & Safety Controls**: Developed HerSpace pseudonym generation, empathetic reactions, interactive comment flows, and the instant Quick Exit escape system.
@@ -164,8 +164,8 @@ And through the memorial, we remember that honoring the women who were silenced 
 
 ## Team Credits
 
-* **Developer 1**: [@YourDevUsername](https://dev.to/) — *AI Architecture, Backend APIs, Crisis Triage & Tests*
-* **Developer 2**: [@TeammateDevUsername](https://dev.to/) — *Frontend Architecture, UI/UX, Memorial & Community Features*
+* **Developer 1**: [@jaya patel](https://dev.to/jaya_patel_3e4e433cabef5d) — *AI Architecture, Backend APIs, Crisis Triage & Tests*
+* **Developer 2**: [@Nawed Ullah](https://dev.to/nawed_ullah_86d66394947ac) — *Frontend Architecture, UI/UX, Memorial & Community Features*
 
 ---
 
