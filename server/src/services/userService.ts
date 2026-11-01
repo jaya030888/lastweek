@@ -45,3 +45,4 @@ export async function ensureUser(userId?: string | null, pseudonym?: string | nu
     });
   }
 }
+
