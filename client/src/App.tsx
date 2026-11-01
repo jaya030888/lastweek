@@ -6,7 +6,6 @@ import { EmergencyBanner } from './components/common/EmergencyBanner';
 import { Navbar } from './components/navbar/Navbar';
 import { Footer } from './components/footer/Footer';
 import { QuickExitButton } from './components/common/QuickExitButton';
-import { CookieConsentBanner } from './components/common/CookieConsentBanner';
 import { StickyMobileCTA } from './components/common/StickyMobileCTA';
 import { analytics } from './utils/analytics';
 import { Loader2 } from 'lucide-react';
@@ -86,9 +85,6 @@ export const App: React.FC = () => {
 
             {/* Global Floating Quick Exit & Camouflage Trigger */}
             <QuickExitButton />
-
-            {/* Privacy-Preserving Cookie Notice */}
-            <CookieConsentBanner />
 
             {/* Comprehensive Decluttered Footer */}
             <Footer />
