@@ -1,8 +1,7 @@
 ---
-title: 👻 Her Voice 💜 — The Ghost in the Machine That Listens Without Judging
-published: true
+title: "Her Voice - The Ghost in the Machine That Listens Without Judging"
+published: false
 tags: devchallenge, hf26challenge, hacktoberfest, ai
-cover_image: https://raw.githubusercontent.com/jaya030888/her-voice/main/client/public/vite.svg
 ---
 
 *This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 4: Ghost in the Machine](https://dev.to/challenges/hacktoberfest-week4-2026-10-26)*
