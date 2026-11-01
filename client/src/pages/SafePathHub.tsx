@@ -13,6 +13,10 @@ import {
   Key,
   FileText,
   Heart,
+  Navigation,
+  Route,
+  Clock,
+  LocateFixed,
 } from 'lucide-react';
 import { api } from '../services/api';
 import { SafetyResource } from '../types';
@@ -39,6 +43,67 @@ export const SafePathHub: React.FC = () => {
   };
 
   const checklistCompletedCount = Object.values(checklist).filter(Boolean).length;
+
+  // Route planner state (kept entirely inside the SafePath page)
+  const [routeOrigin, setRouteOrigin] = useState('');
+  const [routeDestination, setRouteDestination] = useState('');
+  const [routeLoading, setRouteLoading] = useState(false);
+  const [routeError, setRouteError] = useState('');
+  const [routeResult, setRouteResult] = useState<{
+    distanceKm: number;
+    durationMinutes: number;
+    mapUrl: string;
+  } | null>(null);
+
+  const findSafePath = async () => {
+    if (!routeOrigin.trim() || !routeDestination.trim()) {
+      setRouteError('Please enter both your starting point and destination.');
+      setRouteResult(null);
+      return;
+    }
+
+    setRouteLoading(true);
+    setRouteError('');
+    setRouteResult(null);
+
+    try {
+      const geocode = async (place: string) => {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(place)}`
+        );
+        if (!response.ok) throw new Error('Location search is temporarily unavailable. Please try again.');
+        const results = await response.json();
+        if (!results.length) throw new Error(`Could not find: ${place}. Try adding the city or state.`);
+        return { lat: Number(results[0].lat), lon: Number(results[0].lon) };
+      };
+
+      const [start, end] = await Promise.all([
+        geocode(routeOrigin.trim()),
+        geocode(routeDestination.trim()),
+      ]);
+
+      const routeResponse = await fetch(
+        `https://router.project-osrm.org/route/v1/driving/${start.lon},${start.lat};${end.lon},${end.lat}?overview=false&steps=false`
+      );
+      if (!routeResponse.ok) throw new Error('Could not calculate a route right now. Please try again.');
+      const routeData = await routeResponse.json();
+      if (routeData.code !== 'Ok' || !routeData.routes?.length) {
+        throw new Error('No drivable route was found between these locations.');
+      }
+
+      const bestRoute = routeData.routes[0];
+      const mapUrl = `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${start.lat}%2C${start.lon}%3B${end.lat}%2C${end.lon}`;
+      setRouteResult({
+        distanceKm: bestRoute.distance / 1000,
+        durationMinutes: bestRoute.duration / 60,
+        mapUrl,
+      });
+    } catch (error) {
+      setRouteError(error instanceof Error ? error.message : 'Something went wrong while finding the route.');
+    } finally {
+      setRouteLoading(false);
+    }
+  };
 
   // Red Flag Diagnostic State
   const [diagnosticAnswers, setDiagnosticAnswers] = useState<{ [key: number]: number }>({});
@@ -174,6 +239,97 @@ export const SafePathHub: React.FC = () => {
       {/* TAB 1: SAFETY PLANNER */}
       {activeTab === 'planner' && (
         <div className="space-y-8">
+          {/* Start-to-destination route finder */}
+          <section className="bg-white rounded-3xl p-6 sm:p-8 border border-zinc-200 shadow-xs space-y-5" aria-labelledby="route-planner-title">
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 rounded-xl bg-purple-100 text-purple-700">
+                <Navigation className="w-5 h-5" aria-hidden="true" />
+              </div>
+              <div className="space-y-1">
+                <h2 id="route-planner-title" className="text-lg font-bold text-zinc-900">SafePath Route Finder</h2>
+                <p className="text-xs text-zinc-500 leading-relaxed">
+                  Enter your starting point and destination to find a suggested road route.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <label className="space-y-1.5 text-xs font-semibold text-zinc-700">
+                Initial Location
+                <div className="relative">
+                  <MapPin className="w-4 h-4 absolute left-3 top-3 text-emerald-600" aria-hidden="true" />
+                  <input
+                    type="text"
+                    value={routeOrigin}
+                    onChange={(e) => setRouteOrigin(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && findSafePath()}
+                    placeholder="e.g. Gandhi Maidan, Patna"
+                    className="w-full pl-9 pr-3 py-3 text-sm border border-zinc-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-300"
+                    autoComplete="street-address"
+                  />
+                </div>
+              </label>
+              <label className="space-y-1.5 text-xs font-semibold text-zinc-700">
+                Destination
+                <div className="relative">
+                  <LocateFixed className="w-4 h-4 absolute left-3 top-3 text-red-600" aria-hidden="true" />
+                  <input
+                    type="text"
+                    value={routeDestination}
+                    onChange={(e) => setRouteDestination(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && findSafePath()}
+                    placeholder="e.g. Patna Junction, Patna"
+                    className="w-full pl-9 pr-3 py-3 text-sm border border-zinc-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-300"
+                    autoComplete="street-address"
+                  />
+                </div>
+              </label>
+            </div>
+
+            <button
+              type="button"
+              onClick={findSafePath}
+              disabled={routeLoading}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold rounded-xl transition disabled:opacity-60"
+            >
+              {routeLoading ? <><span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" /> Finding route...</> : <><Route className="w-4 h-4" aria-hidden="true" /> Find Suggested Route</>}
+            </button>
+
+            {routeError && (
+              <p role="alert" className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700">{routeError}</p>
+            )}
+
+            {routeResult && (
+              <div className="p-4 rounded-2xl bg-purple-50 border border-purple-200 space-y-3" role="status">
+                <div className="flex flex-wrap gap-4">
+                  <div className="flex items-center gap-2 text-sm font-bold text-purple-950">
+                    <Route className="w-4 h-4 text-purple-700" aria-hidden="true" />
+                    {routeResult.distanceKm.toFixed(1)} km
+                  </div>
+                  <div className="flex items-center gap-2 text-sm font-bold text-purple-950">
+                    <Clock className="w-4 h-4 text-purple-700" aria-hidden="true" />
+                    About {Math.round(routeResult.durationMinutes)} min
+                  </div>
+                </div>
+                <p className="text-xs text-purple-900">
+                  A suggested driving route is ready. Open the map to view the route and navigation details.
+                </p>
+                <a
+                  href={routeResult.mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold rounded-xl"
+                >
+                  Open route map <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+                </a>
+              </div>
+            )}
+
+            <p className="text-[11px] text-zinc-500 leading-relaxed">
+              <strong>Important safety note:</strong> This tool provides a suggested driving route based on OpenStreetMap road data. It cannot verify real-time crime, lighting, traffic, closures, or personal safety, so it cannot guarantee the safest route. If you are in immediate danger, call 112. Location searches are sent to OpenStreetMap services to calculate the route.
+            </p>
+          </section>
+
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-zinc-200 shadow-xs space-y-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-100 pb-4">
               <div>
