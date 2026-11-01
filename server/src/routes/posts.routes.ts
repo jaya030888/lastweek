@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { prisma } from '../config';
 import { ModerationService } from '../services/moderationService';
+import { ensureUser } from '../services/userService';
 import { createPostSchema } from '../schemas';
 
 const router = Router();
@@ -128,19 +129,7 @@ router.post('/', async (req: Request, res: Response) => {
 
     const effectivePseudonym = pseudonym?.trim() || `CourageousVoice_${Math.floor(1000 + Math.random() * 9000)}`;
 
-    // Ensure User exists
-    let user = await prisma.user.findUnique({
-      where: { pseudonym: effectivePseudonym },
-    });
-
-    if (!user) {
-      user = await prisma.user.create({
-        data: {
-          pseudonym: effectivePseudonym,
-          avatarSeed: avatarSeed || 'lavender',
-        },
-      });
-    }
+    const user = await ensureUser(null, effectivePseudonym, avatarSeed);
 
     const post = await prisma.post.create({
       data: {
@@ -174,15 +163,8 @@ router.post('/:id/react', async (req: Request, res: Response) => {
       return res.status(400).json({ success: false, error: { message: 'Post ID and reaction type required.' } });
     }
 
-    let effectiveUserId = userId;
-    if (!effectiveUserId) {
-      const user = await prisma.user.create({
-        data: {
-          pseudonym: pseudonym || `Supporter_${Math.floor(1000 + Math.random() * 9000)}`,
-        },
-      });
-      effectiveUserId = user.id;
-    }
+    const user = await ensureUser(userId, pseudonym);
+    const effectiveUserId = user.id;
 
     const existing = await prisma.reaction.findUnique({
       where: {
@@ -210,15 +192,8 @@ router.post('/:id/bookmark', async (req: Request, res: Response) => {
     const postId = req.params.id as string;
     const { userId, pseudonym } = req.body;
 
-    let effectiveUserId = userId;
-    if (!effectiveUserId) {
-      const user = await prisma.user.create({
-        data: {
-          pseudonym: pseudonym || `Reader_${Math.floor(1000 + Math.random() * 9000)}`,
-        },
-      });
-      effectiveUserId = user.id;
-    }
+    const user = await ensureUser(userId, pseudonym);
+    const effectiveUserId = user.id;
 
     const existing = await prisma.bookmark.findUnique({
       where: {

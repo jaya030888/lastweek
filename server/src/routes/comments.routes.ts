@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { prisma } from '../config';
 import { ModerationService } from '../services/moderationService';
+import { ensureUser } from '../services/userService';
 
 const router = Router();
 
@@ -33,18 +34,9 @@ router.post('/:postId/comments', async (req: Request, res: Response) => {
     const modResult = ModerationService.inspectText(content);
     const sanitizedContent = modResult.hasPii ? ModerationService.maskSensitiveDetails(content) : content;
 
-    let authorId = userId;
-    let authorPseudonym = pseudonym;
-
-    if (!authorId) {
-      const user = await prisma.user.create({
-        data: {
-          pseudonym: pseudonym || `SisterEcho_${Math.floor(1000 + Math.random() * 9000)}`,
-        },
-      });
-      authorId = user.id;
-      authorPseudonym = user.pseudonym;
-    }
+    const user = await ensureUser(userId, pseudonym);
+    const authorId = user.id;
+    const authorPseudonym = user.pseudonym;
 
     const comment = await prisma.comment.create({
       data: {
