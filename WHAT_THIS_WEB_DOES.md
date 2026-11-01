@@ -133,3 +133,4 @@ An educational storytelling USP featuring 3 branching scenarios that dismantle v
 
 ## 📌 Summary: In One Sentence
 **Her Voice gives every woman a safe, anonymous space to speak, practical tools to plan her safety, AI and legal guidance to understand her rights, and immediate verified pathways to real-world help—all without compromising her identity or privacy.**
+

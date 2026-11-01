@@ -265,28 +265,28 @@ export const SaathiAiChat: React.FC = () => {
                 )}
 
                 <div
-                  className={`max-w-[85%] sm:max-w-[75%] rounded-2xl p-4 text-xs sm:text-sm leading-relaxed whitespace-pre-line shadow-xs space-y-2 ${
+                  className={`max-w-[90%] sm:max-w-[80%] rounded-2xl p-4 sm:p-5 text-sm sm:text-base leading-relaxed whitespace-pre-line shadow-sm space-y-3 ${
                     msg.sender === 'user'
-                      ? 'bg-purple-700 text-white rounded-br-none'
-                      : 'bg-zinc-50 border border-zinc-200 text-zinc-800 rounded-bl-none'
+                      ? 'bg-purple-700 text-white rounded-br-none font-medium'
+                      : 'bg-white border border-purple-200/80 text-zinc-900 rounded-bl-none shadow-xs'
                   }`}
                 >
-                  <div>{msg.text}</div>
+                  <div className="font-sans leading-relaxed tracking-normal">{msg.text}</div>
 
                   {/* Citations pill if available */}
                   {msg.citations && msg.citations.length > 0 && (
-                    <div className="pt-2 border-t border-zinc-200 space-y-1">
-                      <div className="text-[10px] uppercase font-bold text-purple-700 flex items-center gap-1">
-                        <BookOpen className="w-3 h-3" aria-hidden="true" />
-                        <span>Verified Resources Referenced:</span>
+                    <div className="pt-3 border-t border-purple-100 space-y-2">
+                      <div className="text-[11px] uppercase tracking-wider font-extrabold text-purple-900 flex items-center gap-1.5">
+                        <BookOpen className="w-3.5 h-3.5 text-purple-700" aria-hidden="true" />
+                        <span>Verified Resources &amp; Legal Frameworks:</span>
                       </div>
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-wrap gap-2">
                         {msg.citations.map((c, idx) => (
                           <span
                             key={idx}
-                            className="text-[10px] bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full"
+                            className="inline-flex items-center text-xs font-semibold bg-purple-50 text-purple-900 border border-purple-200/70 px-2.5 py-1 rounded-lg"
                           >
-                            {c.topic} ({c.verifiedDate})
+                            {c.topic} <span className="text-purple-600 ml-1">({c.verifiedDate})</span>
                           </span>
                         ))}
                       </div>
@@ -294,8 +294,8 @@ export const SaathiAiChat: React.FC = () => {
                   )}
 
                   <div
-                    className={`text-[10px] text-right ${
-                      msg.sender === 'user' ? 'text-purple-200' : 'text-zinc-400'
+                    className={`text-[11px] font-medium text-right pt-1 ${
+                      msg.sender === 'user' ? 'text-purple-200' : 'text-zinc-500'
                     }`}
                   >
                     {msg.timestamp}
